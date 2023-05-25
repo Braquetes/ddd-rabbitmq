@@ -1,8 +1,9 @@
 package model
 
 type Colecta struct {
-	Text string `json:"text"`
-	Key  string `json:"key"`
+	Text     string `json:"text"`
+	Key      string `json:"key"`
+	Exchange string `json:"exchange"`
 }
 
 type ColectaResponse struct {

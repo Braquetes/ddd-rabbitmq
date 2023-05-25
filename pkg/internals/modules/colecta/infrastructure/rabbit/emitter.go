@@ -6,7 +6,7 @@ import (
 	"github.com/streadway/amqp"
 )
 
-func Prod(message string, key string) error {
+func Prod(message string, key string, exchange string) error {
 	fmt.Printf("Go-RabbitMQ")
 
 	connection, err := amqp.Dial("amqp://braquetes:1902@localhost:5672/")
@@ -36,23 +36,23 @@ func Prod(message string, key string) error {
 	// }
 
 	err = channel.ExchangeDeclare(
-		"my_exchange", // nombre del exchange
-		"fanout",      // tipo de exchange
-		true,          // duradero
-		false,         // no autodelete
-		false,         // sin interno
-		false,         // sin espera de confirmación
-		nil,           // argumentos adicionales
+		exchange, // nombre del exchange
+		"direct", // tipo de exchange
+		true,     // duradero
+		false,    // no autodelete
+		false,    // sin interno
+		false,    // sin espera de confirmación
+		nil,      // argumentos adicionales
 	)
 	if err != nil {
 		return err
 	}
 
 	err = channel.Publish(
-		"my_exchange", // exchange
-		key,           // key
-		false,         // mandatory
-		false,         // immediate
+		exchange, // exchange
+		key,      // key
+		false,    // mandatory
+		false,    // immediate
 		amqp.Publishing{
 			ContentType: "text/plain",
 			Body:        []byte(message),

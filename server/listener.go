@@ -41,7 +41,7 @@ func main() {
 
 	err = channel.QueueBind(
 		queue.Name,    // Nombre de la cola
-		"",            // Routing key
+		"xdxd",        // Routing key
 		"my_exchange", // Nombre del exchange
 		false,         // No-wait
 		nil,           // Arguments
@@ -52,14 +52,15 @@ func main() {
 
 	fmt.Println("Consume")
 
+	// docker exec -it go-rabbitmq
 	msgs, err := channel.Consume(
-		"amq.gen-5pPX_gnlz2O0tKw7YkzIRw", // queue
-		"",                               // consumer
-		true,                             // auto ack
-		false,                            // exclusive
-		false,                            // no local
-		false,                            // no wait
-		nil,                              //args
+		queue.Name, // queue
+		"",         // consumer
+		true,       // auto ack
+		false,      // exclusive
+		false,      // no local
+		false,      // no wait
+		nil,        //args
 	)
 	if err != nil {
 		panic(err)
