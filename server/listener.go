@@ -25,42 +25,42 @@ func main() {
 
 	// fmt.Println("Create")
 	// // Crear una cola
-	queue, err := channel.QueueDeclare(
-		"",    // Nombre de la cola
-		false, // durable
-		false, // delete when unused
-		false, // exclusive
-		false, // no-wait
-		nil,   // arguments
-	)
-	if err != nil {
-		panic(err)
-	}
+	// queue, err := channel.QueueDeclare(
+	// 	"",    // Nombre de la cola
+	// 	false, // durable
+	// 	false, // delete when unused
+	// 	false, // exclusive
+	// 	false, // no-wait
+	// 	nil,   // arguments
+	// )
+	// if err != nil {
+	// 	panic(err)
+	// }
 
-	fmt.Println("QueueBind", queue.Name, queue.Consumers, queue.Messages)
+	// fmt.Println("QueueBind", queue.Name, queue.Consumers, queue.Messages)
 
-	err = channel.QueueBind(
-		queue.Name,    // Nombre de la cola
-		"xdxd",        // Routing key
-		"my_exchange", // Nombre del exchange
-		false,         // No-wait
-		nil,           // Arguments
-	)
-	if err != nil {
-		panic(err)
-	}
+	// err = channel.QueueBind(
+	// 	queue.Name,    // Nombre de la cola
+	// 	"xdxd",        // Routing key
+	// 	"my_exchange", // Nombre del exchange
+	// 	false,         // No-wait
+	// 	nil,           // Arguments
+	// )
+	// if err != nil {
+	// 	panic(err)
+	// }
 
 	fmt.Println("Consume")
 
 	// docker exec -it go-rabbitmq
 	msgs, err := channel.Consume(
-		queue.Name, // queue
-		"",         // consumer
-		true,       // auto ack
-		false,      // exclusive
-		false,      // no local
-		false,      // no wait
-		nil,        //args
+		"testing", // queue
+		"",        // consumer
+		true,      // auto ack
+		false,     // exclusive
+		false,     // no local
+		false,     // no wait
+		nil,       //args
 	)
 	if err != nil {
 		panic(err)

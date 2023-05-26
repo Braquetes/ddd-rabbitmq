@@ -32,7 +32,7 @@ func (handler *ColectaHandler) ObtenerCadena(c *fiber.Ctx) error {
 		})
 	}
 	texto := handler.colectaService.GetTexto(colecta)
-	rabbitmq := rabbit.Prod(texto, colecta.Key, colecta.Exchange)
+	rabbitmq := rabbit.Prod(texto, colecta.Key, colecta.Exchange, colecta.Type)
 	if rabbitmq != nil {
 		return c.Status(400).JSON(&model.ColectaErrorResponse{
 			Message: fmt.Sprintf("No existe el colecta %s", texto),
